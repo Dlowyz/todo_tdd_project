@@ -1,12 +1,20 @@
-const express = require('express');
+const express = require("express");
+const todoRoutes = require("./routes/todo.routes");
 const app = express();
+const mongodb = require("./mongodb/mongodb.connect");
 
+mongodb.connect();
 
-app.get('/', (req, res) => {
-  res.send('express test'); 
-}
-);
+app.use(express.json());
 
-app.listen(3000, () => {
-  console.log('Server is running on http://localhost:3000');
+app.use("/todos", todoRoutes);
+
+app.get("/", (req, res) => {
+  res.send("express test");
 });
+
+//app.listen(3015, () => {
+//  console.log("server is running");
+//});
+
+module.exports = app;
